@@ -1,0 +1,10 @@
+* text=auto
+
+/.github    export-ignore
+/tests      export-ignore
+/phpunit*   export-ignore
+/phpstan*   export-ignore
+/*.md       export-ignore
+/Makefile   export-ignore
+/[Dd]ocker* export-ignore
+/.*         export-ignore
