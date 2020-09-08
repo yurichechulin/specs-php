@@ -1,11 +1,11 @@
 <?php
 
-namespace Avtocod\Specifications\SDK\Tests\Structures;
+namespace Avtocod\Specifications\Tests\Structures;
 
 use Avtocod\Specifications\Structures\Source;
 
 /**
- * @covers \Avtocod\Specifications\SDK\Structures\Source<extended>
+ * @covers \Avtocod\Specifications\Structures\Source<extended>
  */
 class SourceTest extends AbstractStructureTestCase
 {

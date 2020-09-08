@@ -1,11 +1,11 @@
 <?php
 
-namespace Avtocod\Specifications\SDK\Tests\Structures;
+namespace Avtocod\Specifications\Tests\Structures;
 
 use Avtocod\Specifications\Structures\IdentifierType;
 
 /**
- * @covers \Avtocod\Specifications\SDK\Structures\IdentifierType<extended>
+ * @covers \Avtocod\Specifications\Structures\IdentifierType<extended>
  */
 class IdentifierTypeTest extends AbstractStructureTestCase
 {

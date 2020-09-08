@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Avtocod\Specifications\SDK\Tests\Structures;
+namespace Avtocod\Specifications\Tests\Structures;
 
 use LogicException;
-use Avtocod\Specifications\SDK\Tests\AbstractTestCase;
+use PHPUnit\Framework\TestCase;
 use Avtocod\Specifications\Structures\AbstractStructure;
 
 /**
  * @coversNothing
  */
-abstract class AbstractStructureTestCase extends AbstractTestCase
+abstract class AbstractStructureTestCase extends TestCase
 {
     /**
      * @var AbstractStructure

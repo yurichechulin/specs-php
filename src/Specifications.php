@@ -2,23 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Avtocod\Specifications\SDK;
+namespace Avtocod\Specifications;
 
 use Exception;
 use InvalidArgumentException;
+use PackageVersions\Versions;
 use Tarampampam\Wrappers\Json;
 use Illuminate\Support\Collection;
-use Avtocod\Specifications\SDK\Structures\Field;
-use Avtocod\Specifications\SDK\Structures\Source;
-use Avtocod\Specifications\SDK\Structures\VehicleMark;
-use Avtocod\Specifications\SDK\Structures\VehicleType;
-use Avtocod\Specifications\SDK\Structures\VehicleModel;
-use Avtocod\Specifications\Specifications as VendorSpecs;
-use Avtocod\Specifications\SDK\Structures\IdentifierType;
+use Avtocod\Specifications\Structures\Field;
+use Avtocod\Specifications\Structures\Source;
+use Avtocod\Specifications\Structures\VehicleMark;
+use Avtocod\Specifications\Structures\VehicleType;
+use Avtocod\Specifications\Structures\VehicleModel;
+use Avtocod\Specifications\Structures\IdentifierType;
 use Tarampampam\Wrappers\Exceptions\JsonEncodeDecodeException;
 
 class Specifications
 {
+    /**
+     * Specifivations data package name.
+     */
+    public const AVTOCOD_SPECS_PACKAGE_NAME = 'avtocod/specs';
+
     /**
      * Default specification group name.
      */
@@ -28,6 +33,40 @@ class Specifications
      * Default vehicle type.
      */
     public const VEHICLE_TYPE_DEFAULT = 'ID_TYPE_CAR';
+
+    /**
+     * Get specifications data package version.
+     *
+     * @param bool $without_hash
+     *
+     * @return string
+     */
+    public static function version(bool $without_hash = true): string
+    {
+        $version = Versions::getVersion(self::AVTOCOD_SPECS_PACKAGE_NAME);
+
+        if ($without_hash === true && \is_int($delimiter_position = \mb_strpos($version, '@'))) {
+            return \mb_substr($version, 0, (int) $delimiter_position);
+        }
+
+        return $version;
+    }
+
+    /**
+     * Get the specifications root directory path.
+     *
+     * @param string|null $additional_path
+     *
+     * @return string
+     */
+    public static function getRootDirectoryPath(string $additional_path = null): string
+    {
+        $root = self::getVendorDirectoryPath() . \DIRECTORY_SEPARATOR . self::AVTOCOD_SPECS_PACKAGE_NAME;
+
+        return $additional_path !== null
+            ? $root . \DIRECTORY_SEPARATOR . \ltrim($additional_path, ' \\/')
+            : $root;
+    }
 
     /**
      * Get fields specification as collection of typed objects.
@@ -44,7 +83,7 @@ class Specifications
 
         $result = new Collection;
         $input  = static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/fields/{$group_name}/fields_list.json")
+            static::getRootDirectoryPath("/fields/{$group_name}/fields_list.json")
         );
 
         foreach ((array) $input as $field_data) {
@@ -67,7 +106,7 @@ class Specifications
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
         return static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/fields/{$group_name}/json-schema.json"), $as_array
+            static::getRootDirectoryPath("/fields/{$group_name}/json-schema.json"), $as_array
         );
     }
 
@@ -85,7 +124,7 @@ class Specifications
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
         return static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/reports/{$group_name}/examples/{$name}.json"), $as_array
+            static::getRootDirectoryPath("/reports/{$group_name}/examples/{$name}.json"), $as_array
         );
     }
 
@@ -102,7 +141,7 @@ class Specifications
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
         return static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/reports/{$group_name}/json-schema.json"), $as_array
+            static::getRootDirectoryPath("/reports/{$group_name}/json-schema.json"), $as_array
         );
     }
 
@@ -121,7 +160,7 @@ class Specifications
 
         $result = new Collection;
         $input  = static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/identifiers/{$group_name}/types_list.json")
+            static::getRootDirectoryPath("/identifiers/{$group_name}/types_list.json")
         );
 
         foreach ((array) $input as $source_data) {
@@ -144,7 +183,7 @@ class Specifications
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
         return static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/identifiers/{$group_name}/json-schema.json"), $as_array
+            static::getRootDirectoryPath("/identifiers/{$group_name}/json-schema.json"), $as_array
         );
     }
 
@@ -163,7 +202,7 @@ class Specifications
 
         $result = new Collection;
         $input  = static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/sources/{$group_name}/sources_list.json")
+            static::getRootDirectoryPath("/sources/{$group_name}/sources_list.json")
         );
 
         foreach ((array) $input as $source_data) {
@@ -186,7 +225,7 @@ class Specifications
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
         return static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/sources/{$group_name}/json-schema.json"), $as_array
+            static::getRootDirectoryPath("/sources/{$group_name}/json-schema.json"), $as_array
         );
     }
 
@@ -205,7 +244,7 @@ class Specifications
 
         $result = new Collection;
         $input  = static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/vehicles/{$group_name}/marks.json")
+            static::getRootDirectoryPath("/vehicles/{$group_name}/marks.json")
         );
 
         foreach ((array) $input as $source_data) {
@@ -235,7 +274,7 @@ class Specifications
         $path_file = static::getVehicleModelsSpecificationFilePath($vehicle_type, $group_name);
 
         $result = new Collection;
-        $input  = static::getJsonFileContent(VendorSpecs::getRootDirectoryPath($path_file));
+        $input  = static::getJsonFileContent(static::getRootDirectoryPath($path_file));
 
         foreach ((array) $input as $source_data) {
             $result->put($source_data['id'], new VehicleModel($source_data));
@@ -260,7 +299,7 @@ class Specifications
 
         $result = new Collection;
         $input  = static::getJsonFileContent(
-            VendorSpecs::getRootDirectoryPath("/vehicles/{$group_name}/types.json")
+            static::getRootDirectoryPath("/vehicles/{$group_name}/types.json")
         );
 
         foreach ((array) $input as $source_data) {
@@ -340,5 +379,17 @@ class Specifications
         $alias = static::getVehicleTypeAliasById($vehicle_type_id, $group_name);
 
         return "/vehicles/{$group_name}/models_{$alias}.json";
+    }
+
+    /**
+     * Returns composer vendor directory patch.
+     *
+     * @return string
+     */
+    private static function getVendorDirectoryPath(): string
+    {
+        $reflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
+
+        return \dirname((string) $reflection->getFileName(), 2);
     }
 }

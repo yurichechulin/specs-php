@@ -1,11 +1,11 @@
 <?php
 
-namespace Avtocod\Specifications\SDK\Tests\Structures;
+namespace Avtocod\Specifications\Tests\Structures;
 
 use Avtocod\Specifications\Structures\VehicleMark;
 
 /**
- * @covers \Avtocod\Specifications\SDK\Structures\VehicleMark<extended>
+ * @covers \Avtocod\Specifications\Structures\VehicleMark<extended>
  */
 class VehicleMarkTest extends AbstractStructureTestCase
 {

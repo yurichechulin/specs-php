@@ -1,11 +1,11 @@
 <?php
 
-namespace Avtocod\Specifications\SDK\Tests\Structures;
+namespace Avtocod\Specifications\Tests\Structures;
 
 use Avtocod\Specifications\Structures\Field;
 
 /**
- * @covers \Avtocod\Specifications\SDK\Structures\Field<extended>
+ * @covers \Avtocod\Specifications\Structures\Field<extended>
  */
 class FieldTest extends AbstractStructureTestCase
 {

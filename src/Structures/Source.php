@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Avtocod\Specifications\SDK\Structures;
+namespace Avtocod\Specifications\Structures;
 
 class Source extends AbstractStructure
 {

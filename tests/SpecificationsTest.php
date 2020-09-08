@@ -2,18 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Avtocod\Specifications\SDK\Tests;
+namespace Avtocod\Specifications\Tests;
 
 use Exception;
 use ReflectionClass;
 use ReflectionMethod;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Opis\JsonSchema\Schema;
 use InvalidArgumentException;
 use PackageVersions\Versions;
-use Opis\JsonSchema\Validator;
 use Tarampampam\Wrappers\Json;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Avtocod\Specifications\Specifications;
 use Avtocod\Specifications\Structures\Field;
@@ -24,19 +21,14 @@ use Avtocod\Specifications\Structures\VehicleModel;
 use Avtocod\Specifications\Structures\IdentifierType;
 
 /**
- * @covers \Avtocod\Specifications\SDK\Specifications<extended>
+ * @covers \Avtocod\Specifications\Specifications<extended>
  */
-class SpecificationsTest extends AbstractTestCase
+class SpecificationsTest extends TestCase
 {
     /**
      * @var Specifications
      */
     protected $instance;
-
-    /**
-     * @var Validator
-     */
-    protected $validator;
 
     /**
      * {@inheritdoc}
@@ -45,7 +37,6 @@ class SpecificationsTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->validator = new Validator;
         $this->instance  = new Specifications;
     }
 
@@ -56,7 +47,9 @@ class SpecificationsTest extends AbstractTestCase
      */
     public function testConstants(): void
     {
+        $this->assertEquals('avtocod/specs', Specifications::AVTOCOD_SPECS_PACKAGE_NAME);
         $this->assertEquals('default', Specifications::GROUP_NAME_DEFAULT);
+        $this->assertEquals('ID_TYPE_CAR', Specifications::VEHICLE_TYPE_DEFAULT);
     }
 
     /**
@@ -64,9 +57,13 @@ class SpecificationsTest extends AbstractTestCase
      */
     public function testGetRootDirectoryPath(): void
     {
-        $this->assertEquals($this->instance::getRootDirectoryPath(), $root = $this->getRootDirPath());
-        $this->assertEquals($this->instance::getRootDirectoryPath('foo'), $root . DIRECTORY_SEPARATOR . 'foo');
-        $this->assertEquals($this->instance::getRootDirectoryPath(' /foo'), $root . DIRECTORY_SEPARATOR . 'foo');
+        $reflection = new \ReflectionClass(\Composer\Autoload\ClassLoader::class);
+        $vendor_dir = \dirname((string) $reflection->getFileName(), 2);
+        $root       = $vendor_dir . \DIRECTORY_SEPARATOR . $this->instance::AVTOCOD_SPECS_PACKAGE_NAME;
+
+        $this->assertEquals($root, $this->instance::getRootDirectoryPath());
+        $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
+        $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
     }
 
     /**
@@ -87,7 +84,6 @@ class SpecificationsTest extends AbstractTestCase
 
         foreach (['default', null] as $group_name) {
             $result  = $this->instance::getFieldsSpecification($group_name);
-            $sources = $this->instance::getSourcesSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
 
             foreach ($result as $item) {
@@ -101,7 +97,6 @@ class SpecificationsTest extends AbstractTestCase
             );
 
             $this->assertCount(\count($raw), $result);
-            $patches = [];
 
             foreach ($raw as $i => $field_data) {
                 $this->assertEquals($path = $field_data['path'], $result[$i]->getPath());
@@ -120,19 +115,6 @@ class SpecificationsTest extends AbstractTestCase
                 } else {
                     $this->assertNotEmpty($fillable_by, "Path {$path} has empty 'fillable_by' attribute");
                 }
-
-                $fillable_sources = [];
-
-                foreach ($fillable_by as $source) {
-                    $this->assertTrue($sources->contains('name', $source),
-                        "Path [{$path}] contains invalid source [{$source}]");
-                    $this->assertNotContains($source, $fillable_sources,
-                        "Path [{$path}] contains source duplicate: {$source}");
-                    $fillable_sources[] = $source;
-                }
-
-                $this->assertNotContains($path, $patches, "Fields specification contains field duplicate: {$path}");
-                $patches[] = $path;
             }
         }
     }
@@ -145,26 +127,7 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getFieldsJsonSchema($group_name));
             $this->assertIsArray($this->instance::getFieldsJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/fields/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
         }
-    }
-
-    /**
-     * @return void
-     */
-    public function testFieldsJsonSchemaValidation(): void
-    {
-        $fields_raw = Json::decode(\file_get_contents(
-            $this->instance::getRootDirectoryPath('/fields/default/fields_list.json')
-        ), false);
-
-        $this->assertTrue($this->validator->schemaValidation(
-            $fields_raw, new Schema($this->instance::getFieldsJsonSchema('default'))
-        )->isValid());
     }
 
     /**
@@ -207,30 +170,6 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getReportJsonSchema($group_name));
             $this->assertIsArray($this->instance::getReportJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/reports/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function testReportExamplesUsingSchemaValidator(): void
-    {
-        foreach (['default', null] as $group_name) {
-            foreach (['full', 'empty'] as $report_example_type) {
-                $report_example = $this->instance::getReportExample($group_name, $report_example_type, false);
-
-                $this->assertTrue(
-                    $this->validator->schemaValidation(
-                        $report_example,
-                        new Schema($this->instance::getReportJsonSchema($group_name))
-                    )->isValid()
-                );
-            }
         }
     }
 
@@ -254,15 +193,12 @@ class SpecificationsTest extends AbstractTestCase
             );
 
             $this->assertCount(\count($raw), $result);
-            $types = [];
 
             foreach ($raw as $identifier_data) {
                 $type = $identifier_data['type'];
 
                 $this->assertEquals($identifier_data['description'], $result[$type]->getDescription());
                 $this->assertEquals($identifier_data['type'], $result[$type]->getType());
-                $this->assertNotContains($type, $types, "Identifier type contains duplicate: {$type}");
-                $types[] = $type;
             }
         }
     }
@@ -288,30 +224,6 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getIdentifierTypesJsonSchema($group_name));
             $this->assertIsArray($this->instance::getIdentifierTypesJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/identifiers/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function testIdentifierTypesUsingSchemaValidator(): void
-    {
-        foreach (['default', null] as $group_name) {
-            $identifier_types = Json::decode(\file_get_contents($this->instance::getRootDirectoryPath(
-                '/identifiers/default/types_list.json'
-            )), false);
-
-            $this->assertTrue(
-                $this->validator->schemaValidation(
-                    $identifier_types,
-                    new Schema($this->instance::getIdentifierTypesJsonSchema($group_name))
-                )->isValid()
-            );
         }
     }
 
@@ -321,65 +233,11 @@ class SpecificationsTest extends AbstractTestCase
     public function testVersion(): void
     {
         $this->assertSame(
-            $version = Versions::getVersion($this->instance::SELF_PACKAGE_NAME),
+            $version = Versions::getVersion($this->instance::AVTOCOD_SPECS_PACKAGE_NAME),
             $this->instance::version(false)
         );
 
         $this->assertSame(\mb_substr($version, 0, (int) \mb_strpos($version, '@')), $this->instance::version());
-    }
-
-    /**
-     * @return void
-     */
-    public function testFieldsListAndReportSchemaAreSame(): void
-    {
-        $fields = $this->instance::getFieldsSpecification();
-        $schema = $this->instance::getReportJsonSchema(null, true);
-
-        foreach ($fields as $field) {
-            $schema_path = [];
-
-            foreach ($field->getPathParts() as $path_part) {
-                $schema_path[] = 'properties';
-
-                if (Str::contains($path_part, Field::NESTING_SIGNATURE)) {
-                    $schema_path[] = \str_replace(Field::NESTING_SIGNATURE, '', $path_part);
-                    $schema_path[] = 'items';
-                } else {
-                    $schema_path[] = $path_part;
-                }
-            }
-
-            $schema_field_data = Arr::get($schema, $schema_path = \implode('.', $schema_path));
-
-            $this->assertNotEmpty($schema_field_data);
-            $this->assertNotEmpty($schema_field_data['description'],
-                "Schema field with path {$schema_path}.description should be not empty");
-
-            $this->assertContains(
-                $schema_field_data['description'],
-                $field->getDescription(),
-                "Schema should contains same 'description' for field with path {$field->getPath()} (from 'fields_list.json' file)"
-            );
-
-            foreach ($field->getFillableBy() as $source_name) {
-                $this->assertNotEmpty($schema_field_data['fillable_by'], "'fillable_by' in {$schema_path} is empty");
-
-                $this->assertContains(
-                    $source_name,
-                    $schema_field_data['fillable_by'],
-                    "Schema should contains same 'fillable_by' for field with path {$field->getPath()} (from 'fields_list.json' file)"
-                );
-            }
-
-            foreach ($schema_field_data['fillable_by'] as $source_name) {
-                $this->assertContains(
-                    $source_name,
-                    $field->getFillableBy(),
-                    "Schema should contains existing 'fillable_by' for field with path {$field->getPath()} (from 'fields_list.json' file)"
-                );
-            }
-        }
     }
 
     /**
@@ -413,15 +271,12 @@ class SpecificationsTest extends AbstractTestCase
             );
 
             $this->assertCount(\count($raw), $result);
-            $names = [];
 
             foreach ($raw as $source_data) {
                 $name = $source_data['name'];
 
                 $this->assertEquals($source_data['name'], $result[$name]->getName());
                 $this->assertEquals($source_data['description'], $result[$name]->getDescription());
-                $this->assertNotContains($name, $names, "Sources names contains duplicate: {$name}");
-                $names[] = $name;
             }
         }
     }
@@ -434,30 +289,6 @@ class SpecificationsTest extends AbstractTestCase
         foreach (['default', null] as $group_name) {
             $this->assertIsObject($as_object = $this->instance::getSourcesJsonSchema($group_name));
             $this->assertIsArray($this->instance::getSourcesJsonSchema($group_name, true));
-
-            $this->assertStringStartsWith(
-                'https://github.com/avtocod/specs/blob/master/sources/default/json-schema.json',
-                (new Schema($as_object))->id()
-            );
-        }
-    }
-
-    /**
-     * @return void
-     */
-    public function testSourcesUsingSchemaValidator(): void
-    {
-        foreach (['default', null] as $group_name) {
-            $identifier_types = Json::decode(\file_get_contents($this->instance::getRootDirectoryPath(
-                '/sources/default/sources_list.json'
-            )), false);
-
-            $this->assertTrue(
-                $this->validator->schemaValidation(
-                    $identifier_types,
-                    new Schema($this->instance::getSourcesJsonSchema($group_name))
-                )->isValid()
-            );
         }
     }
 
@@ -481,15 +312,12 @@ class SpecificationsTest extends AbstractTestCase
             );
 
             $this->assertCount(count($raw), $result);
-            $mark_ids = [];
 
             foreach ($raw as $source_data) {
                 $mark_id = $source_data['id'];
 
                 $this->assertEquals($source_data['id'], $result[$mark_id]->getId());
                 $this->assertEquals($source_data['name'], $result[$mark_id]->getName());
-                $this->assertNotContains($mark_id, $mark_ids, "Mark ID contains duplicate: {$mark_id}");
-                $mark_ids[] = $mark_id;
             }
         }
     }
@@ -514,7 +342,6 @@ class SpecificationsTest extends AbstractTestCase
             );
 
             $this->assertCount(count($raw), $result);
-            $model_ids = [];
 
             foreach ($raw as $source_data) {
                 $model_id = $source_data['id'];
@@ -522,8 +349,6 @@ class SpecificationsTest extends AbstractTestCase
                 $this->assertEquals($source_data['id'], $result[$model_id]->getId());
                 $this->assertEquals($source_data['name'], $result[$model_id]->getName());
                 $this->assertEquals($source_data['mark_id'], $result[$model_id]->getMarkId());
-                $this->assertNotContains($model_id, $model_ids, "Model ID contains duplicate: {$model_id}");
-                $model_ids[] = $model_id;
             }
         }
     }
@@ -549,14 +374,12 @@ class SpecificationsTest extends AbstractTestCase
                     \file_get_contents($this->instance::getRootDirectoryPath($path_file))
                 );
                 $this->assertCount(count($raw), $result);
-                $model_ids = [];
+
                 foreach ($raw as $source_data) {
                     $model_id = $source_data['id'];
                     $this->assertEquals($source_data['id'], $result[$model_id]->getId());
                     $this->assertEquals($source_data['name'], $result[$model_id]->getName());
                     $this->assertEquals($source_data['mark_id'], $result[$model_id]->getMarkId());
-                    $this->assertNotContains($model_id, $model_ids, "Model ID contains duplicate: {$model_id}");
-                    $model_ids[] = $model_id;
                 }
             }
         }
@@ -645,15 +468,12 @@ class SpecificationsTest extends AbstractTestCase
             );
 
             $this->assertCount(count($raw), $result);
-            $types_ids = [];
 
             foreach ($raw as $source_data) {
                 $type_id = $source_data['id'];
 
                 $this->assertEquals($source_data['id'], $result[$type_id]->getId());
                 $this->assertEquals($source_data['name'], $result[$type_id]->getName());
-                $this->assertNotContains($type_id, $types_ids, "Model type ID contains duplicate: {$type_id}");
-                $types_ids[] = $type_id;
             }
         }
     }

@@ -73,7 +73,7 @@ jobs: # Docs: <https://git.io/JvxXE>
         run: composer require --dev --update-with-all-dependencies --prefer-dist --no-suggest --ansi illuminate/support "${{ matrix.illuminate }}"
 
       - name: Show most important packages versions
-        run: composer info | grep -e phpunit -e phpstan -e illuminate
+        run: composer info | grep -e phpunit -e phpstan -e illuminate -e avtocod
 
       - name: Execute tests
         run: composer test
