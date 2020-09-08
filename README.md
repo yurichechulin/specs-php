@@ -11,7 +11,7 @@
 
 # PHP SDK for [`avtocod/specs`][specs]
 
-This repository contains SDK for data from [`avtocod/specs`][specs] specifications.
+This repository contains SDK for data from [`avtocod/specs`][specs] specifications repository.
 
 ## Install
 
@@ -24,6 +24,23 @@ $ composer require avtocod/specs-php "^1.0"
 > Installed `composer` is required ([how to install composer][getcomposer]).
 
 > You need to fix the major version of package.
+
+## Usage
+
+```php
+use Avtocod\Specifications\Specifications;
+
+// Get specifications (not SDK) version
+$version = Specifications::version();
+
+// Get report content (full example)
+$report_example = Specifications::getReportExample();
+
+// Get report json-schema (as an object or associative array)
+$report_schema = Specifications::getReportJsonSchema();
+```
+
+For more examples - look into sources.
 
 ### Testing
 

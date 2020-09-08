@@ -71,17 +71,6 @@ class SpecificationsTest extends TestCase
      */
     public function testGetFieldsSpecification(): void
     {
-        $fillable_by_should_be_empty_for = [
-            'tech_data.manufacturer.name',
-            'tech_data.brand.name.rus',
-            'tech_data.transmission.type',
-            'calculate.tax.moscow.yearly.amount',
-            'calculate.tax.regions.yearly.amount',
-            'utilizations.items[].org.name',
-            'utilizations.items[].country.name',
-            'mileages.items[].filled_by.source',
-        ];
-
         foreach (['default', null] as $group_name) {
             $result  = $this->instance::getFieldsSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
@@ -109,12 +98,6 @@ class SpecificationsTest extends TestCase
                 );
 
                 $this->assertIsArray($fillable_by);
-
-                if (\in_array($path, $fillable_by_should_be_empty_for, true)) {
-                    $this->assertEmpty($fillable_by, "Path {$path} should have empty 'fillable_by' attribute");
-                } else {
-                    $this->assertNotEmpty($fillable_by, "Path {$path} has empty 'fillable_by' attribute");
-                }
             }
         }
     }
@@ -551,7 +534,7 @@ class SpecificationsTest extends TestCase
      *
      * @return array
      */
-    protected function getVehicleModelsFilePathByTypeId($group_name = null): array
+    protected function getVehicleModelsFilePathByTypeId(?string $group_name = null): array
     {
         $group_name = $group_name ?? 'default';
 
@@ -578,7 +561,7 @@ class SpecificationsTest extends TestCase
      *
      * @return ReflectionMethod
      */
-    protected function getNonPublicMethod($class_name, $method_name): ReflectionMethod
+    protected function getNonPublicMethod(string $class_name, string $method_name): ReflectionMethod
     {
         $class  = new ReflectionClass($class_name);
         $method = $class->getMethod($method_name);

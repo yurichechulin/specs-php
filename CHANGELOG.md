@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 - Class `Avtocod\Specifications\Specifications\VehicleModel` for object representation of vehicle models specifications
 - Class `Avtocod\Specifications\Specifications\VehicleType` for object representation of vehicle types specifications
 - Github actions workflow for unit-tests
-- Dev dependency `avtocod/specs`
+- Dependency `avtocod/specs:~3.46`
 
 [keepachangelog]:https://keepachangelog.com/en/1.0.0/
 [semver]:https://semver.org/spec/v2.0.0.html

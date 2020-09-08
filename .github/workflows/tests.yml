@@ -6,11 +6,7 @@ on:
       - master
     tags-ignore:
       - '**'
-    paths-ignore:
-      - '**.md'
   pull_request:
-    paths-ignore:
-      - '**.md'
   schedule:
     - cron: '0 0 * * 0' # once in a week, docs: <https://git.io/JvxXE#onschedule>
 
@@ -25,6 +21,7 @@ jobs: # Docs: <https://git.io/JvxXE>
         setup: ['basic', 'lowest']
         illuminate: [default]
         php: ['7.2', '7.3', '7.4']
+        coverage: [yes]
         include:
           - php: '7.3'
             setup: basic
@@ -77,6 +74,13 @@ jobs: # Docs: <https://git.io/JvxXE>
 
       - name: Execute tests
         run: composer test
+
+      - uses: codecov/codecov-action@v1 # Docs: <https://github.com/codecov/codecov-action>
+        if: matrix.coverage == 'yes'
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/clover.xml
+          fail_ci_if_error: false
 
   lint-changelog:
     name: Lint changelog file
