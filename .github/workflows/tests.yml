@@ -21,7 +21,6 @@ jobs: # Docs: <https://git.io/JvxXE>
         setup: ['basic', 'lowest']
         illuminate: [default]
         php: ['7.2', '7.3', '7.4']
-        coverage: [yes]
         include:
           - php: '7.3'
             setup: basic
@@ -73,7 +72,7 @@ jobs: # Docs: <https://git.io/JvxXE>
         run: composer info | grep -e phpunit -e phpstan -e illuminate -e avtocod
 
       - name: Execute tests
-        run: composer test
+        run: composer test-cover
 
       - uses: codecov/codecov-action@v1 # Docs: <https://github.com/codecov/codecov-action>
         if: matrix.coverage == 'yes'
