@@ -9,7 +9,6 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 ### Added
 
 - Dev dependency `avtocod/specs`
-- Method `Avtocod\Specifications\Specifications::getVendorDirectoryPath()`
 
 ### Removed
 
