@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.1.0
+
+### Changed
+
+- Dependency `illuminate/support` version `~8.0` is supported now
+- Minimal required `illuminate/support` version now is `6.0` (instead `^5.6`)
+- Dependency `tarampampam/wrappers-php` version `~2.0` is supported now
+
 ## v1.0.0
 
 ### Added

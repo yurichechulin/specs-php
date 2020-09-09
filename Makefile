@@ -3,7 +3,7 @@
 # Makefile readme (en): <https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents>
 
 SHELL = /bin/sh
-RUN_APP_ARGS = --rm --user "$(shell id -u):$(shell id -g)" app
+RUN_APP_ARGS = --rm --user "$(shell id -u):$(shell id -g)"
 
 .PHONY : help build install lowest test test-cover shell clean
 .DEFAULT_GOAL : help
@@ -16,20 +16,23 @@ help: ## Show this help
 build: ## Build docker images, required for current package environment
 	docker-compose build
 
+latest: clean ## Install latest php dependencies
+	docker-compose run $(RUN_APP_ARGS) app composer update -n --ansi --no-suggest --prefer-dist --prefer-stable
+
 install: clean ## Install regular php dependencies
-	docker-compose run $(RUN_APP_ARGS) composer update -n --prefer-dist --no-interaction --no-suggest
+	docker-compose run $(RUN_APP_ARGS) app composer update -n --prefer-dist --no-interaction --no-suggest
 
 lowest: clean ## Install lowest php dependencies
-	docker-compose run $(RUN_APP_ARGS) composer update -n --ansi --no-suggest --prefer-dist --prefer-lowest
+	docker-compose run $(RUN_APP_ARGS) app composer update -n --ansi --no-suggest --prefer-dist --prefer-lowest
 
 test: ## Execute php tests and linters
-	docker-compose run $(RUN_APP_ARGS) composer test
+	docker-compose run $(RUN_APP_ARGS) app composer test
 
 test-cover: ## Execute php tests with coverage
 	docker-compose run --rm --user "0:0" app sh -c 'docker-php-ext-enable xdebug && su $(shell whoami) -s /bin/sh -c "composer phpunit-cover"'
 
 shell: ## Start shell into container with php
-	docker-compose run $(RUN_APP_ARGS) sh
+	docker-compose run $(RUN_APP_ARGS) app sh
 
 clean: ## Remove all dependencies and unimportant files
 	-rm -Rf ./composer.lock ./vendor ./coverage
