@@ -19,6 +19,11 @@ use Avtocod\Specifications\Structures\VehicleMark;
 use Avtocod\Specifications\Structures\VehicleType;
 use Avtocod\Specifications\Structures\VehicleModel;
 use Avtocod\Specifications\Structures\IdentifierType;
+use Avtocod\Specifications\Structures\VehicleAttributeBody;
+use Avtocod\Specifications\Structures\VehicleAttributeEngineType;
+use Avtocod\Specifications\Structures\VehicleAttributeDrivingWheel;
+use Avtocod\Specifications\Structures\VehicleAttributeTransmission;
+use Avtocod\Specifications\Structures\VehicleAttributeSteeringWheel;
 
 /**
  * @covers \Avtocod\Specifications\Specifications<extended>
@@ -47,9 +52,9 @@ class SpecificationsTest extends TestCase
      */
     public function testConstants(): void
     {
-        $this->assertEquals('avtocod/specs', Specifications::AVTOCOD_SPECS_PACKAGE_NAME);
-        $this->assertEquals('default', Specifications::GROUP_NAME_DEFAULT);
-        $this->assertEquals('ID_TYPE_CAR', Specifications::VEHICLE_TYPE_DEFAULT);
+        $this->assertSame('avtocod/specs', Specifications::AVTOCOD_SPECS_PACKAGE_NAME);
+        $this->assertSame('default', Specifications::GROUP_NAME_DEFAULT);
+        $this->assertSame('ID_TYPE_CAR', Specifications::VEHICLE_TYPE_DEFAULT);
     }
 
     /**
@@ -61,9 +66,9 @@ class SpecificationsTest extends TestCase
         $vendor_dir = \dirname((string) $reflection->getFileName(), 2);
         $root       = $vendor_dir . \DIRECTORY_SEPARATOR . $this->instance::AVTOCOD_SPECS_PACKAGE_NAME;
 
-        $this->assertEquals($root, $this->instance::getRootDirectoryPath());
-        $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
-        $this->assertEquals($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
+        $this->assertSame($root, $this->instance::getRootDirectoryPath());
+        $this->assertSame($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath('foo'));
+        $this->assertSame($root . \DIRECTORY_SEPARATOR . 'foo', $this->instance::getRootDirectoryPath(' /foo'));
     }
 
     /**
@@ -88,10 +93,10 @@ class SpecificationsTest extends TestCase
             $this->assertCount(\count($raw), $result);
 
             foreach ($raw as $i => $field_data) {
-                $this->assertEquals($path = $field_data['path'], $result[$i]->getPath());
-                $this->assertEquals($field_data['description'], $result[$i]->getDescription());
-                $this->assertEquals($field_data['types'], $result[$i]->getTypes());
-                $this->assertEquals(
+                $this->assertSame($path = $field_data['path'], $result[$i]->getPath());
+                $this->assertSame($field_data['description'], $result[$i]->getDescription());
+                $this->assertSame($field_data['types'], $result[$i]->getTypes());
+                $this->assertSame(
                     $fillable_by = $field_data['fillable_by'],
                     $result[$i]->getFillableBy(),
                     "{$path} has no 'fillable_by' attribute"
@@ -129,7 +134,7 @@ class SpecificationsTest extends TestCase
                     ))
                 );
 
-                $this->assertEquals($result, $raw);
+                $this->assertSame($result, $raw);
             }
         }
     }
@@ -140,7 +145,7 @@ class SpecificationsTest extends TestCase
     public function testGetReportExampleWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getReportExample('foo bar');
     }
@@ -180,8 +185,8 @@ class SpecificationsTest extends TestCase
             foreach ($raw as $identifier_data) {
                 $type = $identifier_data['type'];
 
-                $this->assertEquals($identifier_data['description'], $result[$type]->getDescription());
-                $this->assertEquals($identifier_data['type'], $result[$type]->getType());
+                $this->assertSame($identifier_data['description'], $result[$type]->getDescription());
+                $this->assertSame($identifier_data['type'], $result[$type]->getType());
             }
         }
     }
@@ -194,7 +199,7 @@ class SpecificationsTest extends TestCase
     public function testGetIdentifierTypesSpecificationWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getIdentifierTypesSpecification('foo bar');
     }
@@ -229,7 +234,7 @@ class SpecificationsTest extends TestCase
     public function testGetFieldsSpecificationWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getFieldsSpecification('foo bar');
     }
@@ -258,8 +263,8 @@ class SpecificationsTest extends TestCase
             foreach ($raw as $source_data) {
                 $name = $source_data['name'];
 
-                $this->assertEquals($source_data['name'], $result[$name]->getName());
-                $this->assertEquals($source_data['description'], $result[$name]->getDescription());
+                $this->assertSame($source_data['name'], $result[$name]->getName());
+                $this->assertSame($source_data['description'], $result[$name]->getDescription());
             }
         }
     }
@@ -299,8 +304,8 @@ class SpecificationsTest extends TestCase
             foreach ($raw as $source_data) {
                 $mark_id = $source_data['id'];
 
-                $this->assertEquals($source_data['id'], $result[$mark_id]->getId());
-                $this->assertEquals($source_data['name'], $result[$mark_id]->getName());
+                $this->assertSame($source_data['id'], $result[$mark_id]->getId());
+                $this->assertSame($source_data['name'], $result[$mark_id]->getName());
             }
         }
     }
@@ -329,9 +334,9 @@ class SpecificationsTest extends TestCase
             foreach ($raw as $source_data) {
                 $model_id = $source_data['id'];
 
-                $this->assertEquals($source_data['id'], $result[$model_id]->getId());
-                $this->assertEquals($source_data['name'], $result[$model_id]->getName());
-                $this->assertEquals($source_data['mark_id'], $result[$model_id]->getMarkId());
+                $this->assertSame($source_data['id'], $result[$model_id]->getId());
+                $this->assertSame($source_data['name'], $result[$model_id]->getName());
+                $this->assertSame($source_data['mark_id'], $result[$model_id]->getMarkId());
             }
         }
     }
@@ -360,10 +365,160 @@ class SpecificationsTest extends TestCase
 
                 foreach ($raw as $source_data) {
                     $model_id = $source_data['id'];
-                    $this->assertEquals($source_data['id'], $result[$model_id]->getId());
-                    $this->assertEquals($source_data['name'], $result[$model_id]->getName());
-                    $this->assertEquals($source_data['mark_id'], $result[$model_id]->getMarkId());
+                    $this->assertSame($source_data['id'], $result[$model_id]->getId());
+                    $this->assertSame($source_data['name'], $result[$model_id]->getName());
+                    $this->assertSame($source_data['mark_id'], $result[$model_id]->getMarkId());
                 }
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetVehicleAttributeBodiesSpecification(): void
+    {
+        foreach (['default', null] as $group_name) {
+            $result = $this->instance::getVehicleAttributeBodySpecification($group_name);
+            $this->assertInstanceOf(Collection::class, $result);
+
+            foreach ($result as $item) {
+                $this->assertInstanceOf(VehicleAttributeBody::class, $item);
+            }
+
+            $raw = Json::decode(
+                \file_get_contents($this->instance::getRootDirectoryPath(
+                    '/vehicle_attributes/default/bodies.json'
+                ))
+            );
+
+            $this->assertCount(count($raw), $result);
+
+            foreach ($raw as $source_data) {
+                $item_id = $source_data['id'];
+
+                $this->assertSame($source_data['id'], $result[$item_id]->getId());
+                $this->assertSame($source_data['name'], $result[$item_id]->getName());
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetVehicleAttributeDrivingWheelsSpecification(): void
+    {
+        foreach (['default', null] as $group_name) {
+            $result = $this->instance::getVehicleAttributeDrivingWheelSpecification($group_name);
+            $this->assertInstanceOf(Collection::class, $result);
+
+            foreach ($result as $item) {
+                $this->assertInstanceOf(VehicleAttributeDrivingWheel::class, $item);
+            }
+
+            $raw = Json::decode(
+                \file_get_contents($this->instance::getRootDirectoryPath(
+                    '/vehicle_attributes/default/driving_wheels.json'
+                ))
+            );
+
+            $this->assertCount(count($raw), $result);
+
+            foreach ($raw as $source_data) {
+                $item_id = $source_data['id'];
+
+                $this->assertSame($source_data['id'], $result[$item_id]->getId());
+                $this->assertSame($source_data['name'], $result[$item_id]->getName());
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetVehicleAttributeEngineTypesSpecification(): void
+    {
+        foreach (['default', null] as $group_name) {
+            $result = $this->instance::getVehicleAttributeEngineTypeSpecification($group_name);
+            $this->assertInstanceOf(Collection::class, $result);
+
+            foreach ($result as $item) {
+                $this->assertInstanceOf(VehicleAttributeEngineType::class, $item);
+            }
+
+            $raw = Json::decode(
+                \file_get_contents($this->instance::getRootDirectoryPath(
+                    '/vehicle_attributes/default/engine_types.json'
+                ))
+            );
+
+            $this->assertCount(count($raw), $result);
+
+            foreach ($raw as $source_data) {
+                $item_id = $source_data['id'];
+
+                $this->assertSame($source_data['id'], $result[$item_id]->getId());
+                $this->assertSame($source_data['name'], $result[$item_id]->getName());
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetVehicleAttributeSteeringWheelsSpecification(): void
+    {
+        foreach (['default', null] as $group_name) {
+            $result = $this->instance::getVehicleAttributeSteeringWheelSpecification($group_name);
+            $this->assertInstanceOf(Collection::class, $result);
+
+            foreach ($result as $item) {
+                $this->assertInstanceOf(VehicleAttributeSteeringWheel::class, $item);
+            }
+
+            $raw = Json::decode(
+                \file_get_contents($this->instance::getRootDirectoryPath(
+                    '/vehicle_attributes/default/steering_wheels.json'
+                ))
+            );
+
+            $this->assertCount(count($raw), $result);
+
+            foreach ($raw as $source_data) {
+                $item_id = $source_data['id'];
+
+                $this->assertSame($source_data['id'], $result[$item_id]->getId());
+                $this->assertSame($source_data['name'], $result[$item_id]->getName());
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetVehicleAttributeTransmissionsSpecification(): void
+    {
+        foreach (['default', null] as $group_name) {
+            $result = $this->instance::getVehicleAttributeTransmissionSpecification($group_name);
+            $this->assertInstanceOf(Collection::class, $result);
+
+            foreach ($result as $item) {
+                $this->assertInstanceOf(VehicleAttributeTransmission::class, $item);
+            }
+
+            $raw = Json::decode(
+                \file_get_contents($this->instance::getRootDirectoryPath(
+                    '/vehicle_attributes/default/transmissions.json'
+                ))
+            );
+
+            $this->assertCount(count($raw), $result);
+
+            foreach ($raw as $source_data) {
+                $item_id = $source_data['id'];
+
+                $this->assertSame($source_data['id'], $result[$item_id]->getId());
+                $this->assertSame($source_data['name'], $result[$item_id]->getName());
             }
         }
     }
@@ -455,8 +610,8 @@ class SpecificationsTest extends TestCase
             foreach ($raw as $source_data) {
                 $type_id = $source_data['id'];
 
-                $this->assertEquals($source_data['id'], $result[$type_id]->getId());
-                $this->assertEquals($source_data['name'], $result[$type_id]->getName());
+                $this->assertSame($source_data['id'], $result[$type_id]->getId());
+                $this->assertSame($source_data['name'], $result[$type_id]->getName());
             }
         }
     }
@@ -467,7 +622,7 @@ class SpecificationsTest extends TestCase
     public function testGetSourcesSpecificationWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getSourcesSpecification('foo bar');
     }

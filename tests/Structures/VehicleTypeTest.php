@@ -22,16 +22,16 @@ class VehicleTypeTest extends AbstractStructureTestCase
     public function testArrayAccess(): void
     {
         $this->instance = $this->factory($input = [
-            'id'           => $id_type = 'some id',
             'name'         => $name = 'some name',
+            'id'           => $id_type = 'some id',
             'alias'        => $alias = 'some alias',
         ]);
 
-        $this->assertEquals($id_type, $this->instance->getId());
-        $this->assertEquals($name, $this->instance->getName());
-        $this->assertEquals($alias, $this->instance->getAlias());
+        $this->assertSame($id_type, $this->instance->getId());
+        $this->assertSame($name, $this->instance->getName());
+        $this->assertSame($alias, $this->instance->getAlias());
 
-        $this->assertEquals($input, $this->instance->toArray());
+        $this->assertSame($input, $this->instance->toArray());
     }
 
     /**

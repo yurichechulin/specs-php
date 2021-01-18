@@ -20,14 +20,14 @@ class VehicleMarkTest extends AbstractStructureTestCase
     public function testConfigure(): void
     {
         $this->instance = $this->factory($input = [
-            'id'   => $description = 'some description',
             'name' => $name = 'some name',
+            'id'   => $description = 'some description',
         ]);
 
-        $this->assertEquals($description, $this->instance->getId());
-        $this->assertEquals($name, $this->instance->getName());
+        $this->assertSame($description, $this->instance->getId());
+        $this->assertSame($name, $this->instance->getName());
 
-        $this->assertEquals($input, $this->instance->toArray());
+        $this->assertSame($input, $this->instance->toArray());
     }
 
     /**
@@ -54,7 +54,7 @@ class VehicleMarkTest extends AbstractStructureTestCase
         ]);
 
         $this->assertTrue(isset($this->instance['name']));
-        $this->assertEquals($name, $this->instance['name']);
+        $this->assertSame($name, $this->instance['name']);
 
         $this->assertFalse(isset($this->instance['bar']));
     }
