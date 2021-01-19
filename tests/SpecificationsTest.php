@@ -19,11 +19,11 @@ use Avtocod\Specifications\Structures\VehicleMark;
 use Avtocod\Specifications\Structures\VehicleType;
 use Avtocod\Specifications\Structures\VehicleModel;
 use Avtocod\Specifications\Structures\IdentifierType;
-use Avtocod\Specifications\Structures\VehicleAttributeBody;
-use Avtocod\Specifications\Structures\VehicleAttributeEngineType;
-use Avtocod\Specifications\Structures\VehicleAttributeDrivingWheel;
-use Avtocod\Specifications\Structures\VehicleAttributeTransmission;
-use Avtocod\Specifications\Structures\VehicleAttributeSteeringWheel;
+use Avtocod\Specifications\Structures\VehicleBodyType;
+use Avtocod\Specifications\Structures\VehicleEngineType;
+use Avtocod\Specifications\Structures\VehicleDrivingWheelsType;
+use Avtocod\Specifications\Structures\VehicleTransmissionType;
+use Avtocod\Specifications\Structures\VehicleSteeringWheelType;
 
 /**
  * @covers \Avtocod\Specifications\Specifications<extended>
@@ -376,19 +376,19 @@ class SpecificationsTest extends TestCase
     /**
      * @return void
      */
-    public function testGetVehicleAttributeBodiesSpecification(): void
+    public function testGetVehicleBodyTypesSpecification(): void
     {
         foreach (['default', null] as $group_name) {
-            $result = $this->instance::getVehicleAttributeBodySpecification($group_name);
+            $result = $this->instance::getVehicleBodyTypesSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
 
             foreach ($result as $item) {
-                $this->assertInstanceOf(VehicleAttributeBody::class, $item);
+                $this->assertInstanceOf(VehicleBodyType::class, $item);
             }
 
             $raw = Json::decode(
                 \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicle_attributes/default/bodies.json'
+                    '/vehicles/default/body_types.json'
                 ))
             );
 
@@ -406,19 +406,19 @@ class SpecificationsTest extends TestCase
     /**
      * @return void
      */
-    public function testGetVehicleAttributeDrivingWheelsSpecification(): void
+    public function testGetVehicleDrivingWheelsTypesSpecification(): void
     {
         foreach (['default', null] as $group_name) {
-            $result = $this->instance::getVehicleAttributeDrivingWheelSpecification($group_name);
+            $result = $this->instance::getVehicleDrivingWheelsTypesSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
 
             foreach ($result as $item) {
-                $this->assertInstanceOf(VehicleAttributeDrivingWheel::class, $item);
+                $this->assertInstanceOf(VehicleDrivingWheelsType::class, $item);
             }
 
             $raw = Json::decode(
                 \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicle_attributes/default/driving_wheels.json'
+                    '/vehicles/default/driving_wheels_types.json'
                 ))
             );
 
@@ -436,19 +436,19 @@ class SpecificationsTest extends TestCase
     /**
      * @return void
      */
-    public function testGetVehicleAttributeEngineTypesSpecification(): void
+    public function testGetVehicleEngineTypesSpecification(): void
     {
         foreach (['default', null] as $group_name) {
-            $result = $this->instance::getVehicleAttributeEngineTypeSpecification($group_name);
+            $result = $this->instance::getVehicleEngineTypesSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
 
             foreach ($result as $item) {
-                $this->assertInstanceOf(VehicleAttributeEngineType::class, $item);
+                $this->assertInstanceOf(VehicleEngineType::class, $item);
             }
 
             $raw = Json::decode(
                 \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicle_attributes/default/engine_types.json'
+                    '/vehicles/default/engine_types.json'
                 ))
             );
 
@@ -466,19 +466,19 @@ class SpecificationsTest extends TestCase
     /**
      * @return void
      */
-    public function testGetVehicleAttributeSteeringWheelsSpecification(): void
+    public function testGetVehicleSteeringWheelTypesSpecification(): void
     {
         foreach (['default', null] as $group_name) {
-            $result = $this->instance::getVehicleAttributeSteeringWheelSpecification($group_name);
+            $result = $this->instance::getVehicleSteeringWheelTypesSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
 
             foreach ($result as $item) {
-                $this->assertInstanceOf(VehicleAttributeSteeringWheel::class, $item);
+                $this->assertInstanceOf(VehicleSteeringWheelType::class, $item);
             }
 
             $raw = Json::decode(
                 \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicle_attributes/default/steering_wheels.json'
+                    '/vehicles/default/steering_wheel_types.json'
                 ))
             );
 
@@ -496,19 +496,19 @@ class SpecificationsTest extends TestCase
     /**
      * @return void
      */
-    public function testGetVehicleAttributeTransmissionsSpecification(): void
+    public function testGetVehicleTransmissionTypesSpecification(): void
     {
         foreach (['default', null] as $group_name) {
-            $result = $this->instance::getVehicleAttributeTransmissionSpecification($group_name);
+            $result = $this->instance::getVehicleTransmissionTypesSpecification($group_name);
             $this->assertInstanceOf(Collection::class, $result);
 
             foreach ($result as $item) {
-                $this->assertInstanceOf(VehicleAttributeTransmission::class, $item);
+                $this->assertInstanceOf(VehicleTransmissionType::class, $item);
             }
 
             $raw = Json::decode(
                 \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicle_attributes/default/transmissions.json'
+                    '/vehicles/default/transmission_types.json'
                 ))
             );
 

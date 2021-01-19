@@ -3,15 +3,15 @@
 namespace Avtocod\Specifications\Tests\Structures;
 
 use Illuminate\Support\Str;
-use Avtocod\Specifications\Structures\VehicleAttributeDrivingWheel;
+use Avtocod\Specifications\Structures\VehicleEngineType;
 
 /**
- * @covers \Avtocod\Specifications\Structures\VehicleAttributeDrivingWheel<extended>
+ * @covers \Avtocod\Specifications\Structures\VehicleEngineType<extended>
  */
-class VehicleAttributeDrivingWheelTest extends AbstractStructureTestCase
+class VehicleEngineTypeTest extends AbstractStructureTestCase
 {
     /**
-     * @var VehicleAttributeDrivingWheel
+     * @var VehicleEngineType
      */
     protected $instance;
 
@@ -64,10 +64,10 @@ class VehicleAttributeDrivingWheelTest extends AbstractStructureTestCase
     /**
      * {@inheritdoc}
      *
-     * @return VehicleAttributeDrivingWheel
+     * @return VehicleEngineType
      */
-    protected function factory(...$arguments): VehicleAttributeDrivingWheel
+    protected function factory(...$arguments): VehicleEngineType
     {
-        return new VehicleAttributeDrivingWheel(...$arguments);
+        return new VehicleEngineType(...$arguments);
     }
 }

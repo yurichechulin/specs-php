@@ -8,11 +8,11 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 ### Added
 
-- Class `Avtocod\Specifications\Structures\VehicleAttributeBody` for object representation of vehicle attribute body specifications
-- Class `Avtocod\Specifications\Structures\VehicleAttributeEngineType` for object representation of vehicle attribute engine type specifications
-- Class `Avtocod\Specifications\Structures\VehicleAttributeTransmission` for object representation of vehicle attribute transmission specifications
-- Class `Avtocod\Specifications\Structures\VehicleAttributeDrivingWheel` for object representation of vehicle attribute driving wheel specifications
-- Class `Avtocod\Specifications\Structures\VehicleAttributeSteeringWheel` for object representation of vehicle attribute steering wheel specifications
+- Class `Avtocod\Specifications\Structures\VehicleBodyType` for object representation of vehicle body type specifications
+- Class `Avtocod\Specifications\Structures\VehicleEngineType` for object representation of vehicle engine type specifications
+- Class `Avtocod\Specifications\Structures\VehicleSteeringWheelType` for object representation of vehicle steering wheel specifications
+- Class `Avtocod\Specifications\Structures\VehicleTransmissionType` for object representation of vehicle transmission type specifications
+- Class `Avtocod\Specifications\Structures\VehicleDrivingWheelsType` for object representation of vehicle driving wheels type specifications
 
 ### Changed
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications\Structures;
 
-class VehicleAttributeTransmission extends AbstractStructure
+class VehicleBodyType extends AbstractStructure
 {
     /**
      * Name.

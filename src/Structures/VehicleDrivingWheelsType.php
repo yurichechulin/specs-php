@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications\Structures;
 
-class VehicleAttributeDrivingWheel extends AbstractStructure
+class VehicleDrivingWheelsType extends AbstractStructure
 {
     /**
      * Name.
