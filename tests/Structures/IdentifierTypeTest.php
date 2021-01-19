@@ -20,14 +20,14 @@ class IdentifierTypeTest extends AbstractStructureTestCase
     public function testConfigure(): void
     {
         $this->instance = $this->factory($input = [
-            'description' => $description = 'some description',
             'type'        => $type = 'some type',
+            'description' => $description = 'some description',
         ]);
 
-        $this->assertEquals($description, $this->instance->getDescription());
-        $this->assertEquals($type, $this->instance->getType());
+        $this->assertSame($description, $this->instance->getDescription());
+        $this->assertSame($type, $this->instance->getType());
 
-        $this->assertEquals($input, $this->instance->toArray());
+        $this->assertSame($input, $this->instance->toArray());
     }
 
     /**
@@ -54,7 +54,7 @@ class IdentifierTypeTest extends AbstractStructureTestCase
         ]);
 
         $this->assertTrue(isset($this->instance['type']));
-        $this->assertEquals($type, $this->instance['type']);
+        $this->assertSame($type, $this->instance['type']);
 
         $this->assertFalse(isset($this->instance['bar']));
     }

@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.2.0
+
+### Added
+
+- Class `Avtocod\Specifications\Structures\VehicleBodyType` for object representation of vehicle body type specifications
+- Class `Avtocod\Specifications\Structures\VehicleEngineType` for object representation of vehicle engine type specifications
+- Class `Avtocod\Specifications\Structures\VehicleSteeringWheelType` for object representation of vehicle steering wheel specifications
+- Class `Avtocod\Specifications\Structures\VehicleTransmissionType` for object representation of vehicle transmission type specifications
+- Class `Avtocod\Specifications\Structures\VehicleDrivingWheelsType` for object representation of vehicle driving wheels type specifications
+
+### Changed
+
+- Replaced usage `assertEquals()` by `assertSame()` in unit-tests
+
 ## v1.1.0
 
 ### Changed

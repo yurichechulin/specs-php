@@ -26,12 +26,12 @@ class FieldTest extends AbstractStructureTestCase
             'fillable_by' => $fillable_by = ['some.source', 'another.source'],
         ]);
 
-        $this->assertEquals($path, $this->instance->getPath());
-        $this->assertEquals($description, $this->instance->getDescription());
-        $this->assertEquals($types, $this->instance->getTypes());
-        $this->assertEquals($fillable_by, $this->instance->getFillableBy());
+        $this->assertSame($path, $this->instance->getPath());
+        $this->assertSame($description, $this->instance->getDescription());
+        $this->assertSame($types, $this->instance->getTypes());
+        $this->assertSame($fillable_by, $this->instance->getFillableBy());
 
-        $this->assertEquals($input, $this->instance->toArray());
+        $this->assertSame($input, $this->instance->toArray());
     }
 
     /**
@@ -62,7 +62,7 @@ class FieldTest extends AbstractStructureTestCase
         ]);
 
         $this->assertTrue(isset($this->instance['path']));
-        $this->assertEquals($path, $this->instance['path']);
+        $this->assertSame($path, $this->instance['path']);
 
         $this->assertFalse(isset($this->instance['bar']));
     }
@@ -76,21 +76,21 @@ class FieldTest extends AbstractStructureTestCase
             'path' => 'some path',
         ]);
 
-        $this->assertEquals(0, $this->instance->nestingDepth());
+        $this->assertSame(0, $this->instance->nestingDepth());
         $this->assertFalse($this->instance->isNested());
 
         $this->instance = $this->factory([
             'path' => 'some.path[].included',
         ]);
 
-        $this->assertEquals(1, $this->instance->nestingDepth());
+        $this->assertSame(1, $this->instance->nestingDepth());
         $this->assertTrue($this->instance->isNested());
 
         $this->instance = $this->factory([
             'path' => 'some.path[].included.in[].me',
         ]);
 
-        $this->assertEquals(2, $this->instance->nestingDepth());
+        $this->assertSame(2, $this->instance->nestingDepth());
         $this->assertTrue($this->instance->isNested());
     }
 
@@ -102,18 +102,18 @@ class FieldTest extends AbstractStructureTestCase
         $this->instance = $this->factory([
             'path' => 'some.path[].included',
         ]);
-        $this->assertEquals(['some', 'path[]', 'included'], $this->instance->getPathParts());
+        $this->assertSame(['some', 'path[]', 'included'], $this->instance->getPathParts());
 
         $this->instance = $this->factory([
             'path' => 'some...foo.....bar',
         ]);
 
-        $this->assertEquals(['some', 'foo', 'bar'], $this->instance->getPathParts());
+        $this->assertSame(['some', 'foo', 'bar'], $this->instance->getPathParts());
 
         $this->instance = $this->factory([
             'path' => null,
         ]);
-        $this->assertEquals([], $this->instance->getPathParts());
+        $this->assertSame([], $this->instance->getPathParts());
     }
 
     /**

@@ -2,15 +2,16 @@
 
 namespace Avtocod\Specifications\Tests\Structures;
 
-use Avtocod\Specifications\Structures\Source;
+use Illuminate\Support\Str;
+use Avtocod\Specifications\Structures\VehicleBodyType;
 
 /**
- * @covers \Avtocod\Specifications\Structures\Source<extended>
+ * @covers \Avtocod\Specifications\Structures\VehicleBodyType<extended>
  */
-class SourceTest extends AbstractStructureTestCase
+class VehicleBodyTypeTest extends AbstractStructureTestCase
 {
     /**
-     * @var Source
+     * @var VehicleBodyType
      */
     protected $instance;
 
@@ -20,11 +21,11 @@ class SourceTest extends AbstractStructureTestCase
     public function testConfigure(): void
     {
         $this->instance = $this->factory($input = [
-            'name'        => $name = 'some name',
-            'description' => $description = 'some description',
+            'id'   => $id = Str::random(),
+            'name' => $name = Str::random(),
         ]);
 
-        $this->assertSame($description, $this->instance->getDescription());
+        $this->assertSame($id, $this->instance->getId());
         $this->assertSame($name, $this->instance->getName());
 
         $this->assertSame($input, $this->instance->toArray());
@@ -36,11 +37,11 @@ class SourceTest extends AbstractStructureTestCase
     public function testConfigureWithNulls(): void
     {
         $this->instance = $this->factory($input = [
-            'description' => null,
-            'name'        => null,
+            'id'   => null,
+            'name' => null,
         ]);
 
-        $this->assertNull($this->instance->getDescription());
+        $this->assertNull($this->instance->getId());
         $this->assertNull($this->instance->getName());
     }
 
@@ -50,10 +51,11 @@ class SourceTest extends AbstractStructureTestCase
     public function testArrayAccess(): void
     {
         $this->instance = $this->factory([
-            'name' => $name = 'some name',
+            'name' => $name = Str::random(),
         ]);
 
-        $this->assertTrue(isset($this->instance['name']));
+        $this->assertInstanceOf(\ArrayAccess::class, $this->instance);
+        $this->assertArrayHasKey('name', $this->instance);
         $this->assertSame($name, $this->instance['name']);
 
         $this->assertFalse(isset($this->instance['bar']));
@@ -62,10 +64,10 @@ class SourceTest extends AbstractStructureTestCase
     /**
      * {@inheritdoc}
      *
-     * @return Source
+     * @return VehicleBodyType
      */
-    protected function factory(...$arguments): Source
+    protected function factory(...$arguments): VehicleBodyType
     {
-        return new Source(...$arguments);
+        return new VehicleBodyType(...$arguments);
     }
 }

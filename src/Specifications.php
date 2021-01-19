@@ -15,12 +15,17 @@ use Avtocod\Specifications\Structures\VehicleMark;
 use Avtocod\Specifications\Structures\VehicleType;
 use Avtocod\Specifications\Structures\VehicleModel;
 use Avtocod\Specifications\Structures\IdentifierType;
+use Avtocod\Specifications\Structures\VehicleBodyType;
+use Avtocod\Specifications\Structures\VehicleEngineType;
+use Avtocod\Specifications\Structures\VehicleTransmissionType;
 use Tarampampam\Wrappers\Exceptions\JsonEncodeDecodeException;
+use Avtocod\Specifications\Structures\VehicleDrivingWheelsType;
+use Avtocod\Specifications\Structures\VehicleSteeringWheelType;
 
 class Specifications
 {
     /**
-     * Specifivations data package name.
+     * Specifications data package name.
      */
     public const AVTOCOD_SPECS_PACKAGE_NAME = 'avtocod/specs';
 
@@ -304,6 +309,131 @@ class Specifications
 
         foreach ((array) $input as $source_data) {
             $result->put($source_data['id'], new VehicleType($source_data));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get vehicle body types specification as collection of typed objects.
+     *
+     * @param string|null $group_name
+     *
+     * @throws Exception
+     *
+     * @return Collection|VehicleBodyType[]
+     */
+    public static function getVehicleBodyTypesSpecification(string $group_name = null): Collection
+    {
+        $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
+
+        $result = new Collection;
+        $input  = static::getJsonFileContent(
+            static::getRootDirectoryPath("/vehicles/{$group_name}/body_types.json")
+        );
+
+        foreach ((array) $input as $source_data) {
+            $result->put($source_data['id'], new VehicleBodyType($source_data));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get vehicle driving wheels types specification as collection of typed objects.
+     *
+     * @param string|null $group_name
+     *
+     * @throws Exception
+     *
+     * @return Collection|VehicleDrivingWheelsType[]
+     */
+    public static function getVehicleDrivingWheelsTypesSpecification(string $group_name = null): Collection
+    {
+        $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
+
+        $result = new Collection;
+        $input  = static::getJsonFileContent(
+            static::getRootDirectoryPath("/vehicles/{$group_name}/driving_wheels_types.json")
+        );
+
+        foreach ((array) $input as $source_data) {
+            $result->put($source_data['id'], new VehicleDrivingWheelsType($source_data));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get vehicle engine types specification as collection of typed objects.
+     *
+     * @param string|null $group_name
+     *
+     * @throws Exception
+     *
+     * @return Collection|VehicleEngineType[]
+     */
+    public static function getVehicleEngineTypesSpecification(string $group_name = null): Collection
+    {
+        $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
+
+        $result = new Collection;
+        $input  = static::getJsonFileContent(
+            static::getRootDirectoryPath("/vehicles/{$group_name}/engine_types.json")
+        );
+
+        foreach ((array) $input as $source_data) {
+            $result->put($source_data['id'], new VehicleEngineType($source_data));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get vehicle steering wheel types specification as collection of typed objects.
+     *
+     * @param string|null $group_name
+     *
+     * @throws Exception
+     *
+     * @return Collection|VehicleSteeringWheelType[]
+     */
+    public static function getVehicleSteeringWheelTypesSpecification(string $group_name = null): Collection
+    {
+        $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
+
+        $result = new Collection;
+        $input  = static::getJsonFileContent(
+            static::getRootDirectoryPath("/vehicles/{$group_name}/steering_wheel_types.json")
+        );
+
+        foreach ((array) $input as $source_data) {
+            $result->put($source_data['id'], new VehicleSteeringWheelType($source_data));
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get vehicle attribute transmission specification as collection of typed objects.
+     *
+     * @param string|null $group_name
+     *
+     * @throws Exception
+     *
+     * @return Collection|VehicleTransmissionType[]
+     */
+    public static function getVehicleTransmissionTypesSpecification(string $group_name = null): Collection
+    {
+        $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
+
+        $result = new Collection;
+        $input  = static::getJsonFileContent(
+            static::getRootDirectoryPath("/vehicles/{$group_name}/transmission_types.json")
+        );
+
+        foreach ((array) $input as $source_data) {
+            $result->put($source_data['id'], new VehicleTransmissionType($source_data));
         }
 
         return $result;
