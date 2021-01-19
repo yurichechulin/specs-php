@@ -21,11 +21,11 @@ class VehicleTransmissionTypeTest extends AbstractStructureTestCase
     public function testConfigure(): void
     {
         $this->instance = $this->factory($input = [
+            'id'   => $id = Str::random(),
             'name' => $name = Str::random(),
-            'id'   => $description = Str::random(),
         ]);
 
-        $this->assertSame($description, $this->instance->getId());
+        $this->assertSame($id, $this->instance->getId());
         $this->assertSame($name, $this->instance->getName());
 
         $this->assertSame($input, $this->instance->toArray());

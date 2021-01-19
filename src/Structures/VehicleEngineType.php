@@ -30,8 +30,8 @@ class VehicleEngineType extends AbstractStructure
     public function toArray(): array
     {
         return [
-            'name' => $this->name,
             'id'   => $this->id,
+            'name' => $this->name,
         ];
     }
 
