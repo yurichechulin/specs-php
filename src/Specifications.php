@@ -17,8 +17,8 @@ use Avtocod\Specifications\Structures\VehicleModel;
 use Avtocod\Specifications\Structures\IdentifierType;
 use Avtocod\Specifications\Structures\VehicleBodyType;
 use Avtocod\Specifications\Structures\VehicleEngineType;
-use Tarampampam\Wrappers\Exceptions\JsonEncodeDecodeException;
 use Avtocod\Specifications\Structures\VehicleTransmissionType;
+use Tarampampam\Wrappers\Exceptions\JsonEncodeDecodeException;
 use Avtocod\Specifications\Structures\VehicleDrivingWheelsType;
 use Avtocod\Specifications\Structures\VehicleSteeringWheelType;
 
