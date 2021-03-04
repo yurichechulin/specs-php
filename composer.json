@@ -19,7 +19,7 @@
         "php": "^7.2",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "avtocod/specs": "~3.62",
+        "avtocod/specs": "~3.70",
         "illuminate/support": "~6.0 || ~7.0 || ~8.0",
         "ocramius/package-versions": "^1.4",
         "tarampampam/wrappers-php": "^1.5 || ~2.0"
