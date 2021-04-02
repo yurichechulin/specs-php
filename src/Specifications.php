@@ -7,7 +7,6 @@ namespace Avtocod\Specifications;
 use Exception;
 use InvalidArgumentException;
 use PackageVersions\Versions;
-use Tarampampam\Wrappers\Json;
 use Illuminate\Support\Collection;
 use Avtocod\Specifications\Structures\Field;
 use Avtocod\Specifications\Structures\Source;
@@ -18,7 +17,6 @@ use Avtocod\Specifications\Structures\IdentifierType;
 use Avtocod\Specifications\Structures\VehicleBodyType;
 use Avtocod\Specifications\Structures\VehicleEngineType;
 use Avtocod\Specifications\Structures\VehicleTransmissionType;
-use Tarampampam\Wrappers\Exceptions\JsonEncodeDecodeException;
 use Avtocod\Specifications\Structures\VehicleDrivingWheelsType;
 use Avtocod\Specifications\Structures\VehicleSteeringWheelType;
 
@@ -473,7 +471,7 @@ class Specifications
      * @param bool   $as_array
      *
      * @throws InvalidArgumentException
-     * @throws JsonEncodeDecodeException
+     * @throws \JsonException
      *
      * @return object|mixed[]
      */
@@ -486,8 +484,8 @@ class Specifications
         $content = (string) \file_get_contents($file_path);
 
         return $as_array === true
-            ? (array) Json::decode($content, true)
-            : (object) Json::decode($content, false);
+            ? (array) \json_decode($content, true, 512, JSON_THROW_ON_ERROR)
+            : (object) \json_decode($content, false, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
