@@ -6,10 +6,8 @@ namespace Avtocod\Specifications\Structures;
 
 use ArrayIterator;
 use LogicException;
-use Tarampampam\Wrappers\Json;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
-use Tarampampam\Wrappers\Exceptions\JsonEncodeDecodeException;
 
 /**
  * @implements \ArrayAccess<string,mixed>
@@ -30,13 +28,13 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
     /**
      * {@inheritdoc}
      *
-     * @throws JsonEncodeDecodeException
+     * @throws \JsonException
      *
      * @deprecated Will be removed in closest major release
      */
     public function toJson($options = 0): string
     {
-        return Json::encode($this->toArray(), $options);
+        return (string) \json_encode($this->toArray(), JSON_THROW_ON_ERROR | $options);
     }
 
     /**

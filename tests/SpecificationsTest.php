@@ -9,7 +9,6 @@ use ReflectionClass;
 use ReflectionMethod;
 use InvalidArgumentException;
 use PackageVersions\Versions;
-use Tarampampam\Wrappers\Json;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Support\Collection;
 use Avtocod\Specifications\Specifications;
@@ -84,11 +83,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(Field::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/fields/default/fields_list.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/fields/default/fields_list.json'
+            )), true);
 
             $this->assertCount(\count($raw), $result);
 
@@ -128,11 +125,9 @@ class SpecificationsTest extends TestCase
                 $result = $this->instance::getReportExample($group_name, $name);
                 $this->assertIsArray($result);
 
-                $raw = Json::decode(
-                    \file_get_contents($this->instance::getRootDirectoryPath(
-                        "/reports/default/examples/{$name}.json"
-                    ))
-                );
+                $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                    "/reports/default/examples/{$name}.json"
+                )), true);
 
                 $this->assertSame($result, $raw);
             }
@@ -174,11 +169,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(IdentifierType::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/identifiers/default/types_list.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/identifiers/default/types_list.json'
+            )), true);
 
             $this->assertCount(\count($raw), $result);
 
@@ -252,11 +245,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(Source::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/sources/default/sources_list.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/sources/default/sources_list.json'
+            )), true);
 
             $this->assertCount(\count($raw), $result);
 
@@ -293,11 +284,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleMark::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/marks.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/marks.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
@@ -323,11 +312,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleModel::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/models.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/models.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
@@ -358,8 +345,8 @@ class SpecificationsTest extends TestCase
                 } else {
                     $path_file = sprintf('/vehicles/default/models_%s.json', $alias);
                 }
-                $raw       = Json::decode(
-                    \file_get_contents($this->instance::getRootDirectoryPath($path_file))
+                $raw       = \json_decode(
+                    \file_get_contents($this->instance::getRootDirectoryPath($path_file)), true
                 );
                 $this->assertCount(count($raw), $result);
 
@@ -386,11 +373,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleBodyType::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/body_types.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/body_types.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
@@ -416,11 +401,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleDrivingWheelsType::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/driving_wheels_types.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/driving_wheels_types.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
@@ -446,11 +429,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleEngineType::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/engine_types.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/engine_types.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
@@ -476,11 +457,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleSteeringWheelType::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/steering_wheel_types.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/steering_wheel_types.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
@@ -506,11 +485,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleTransmissionType::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/transmission_types.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/transmission_types.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
@@ -599,11 +576,9 @@ class SpecificationsTest extends TestCase
                 $this->assertInstanceOf(VehicleType::class, $item);
             }
 
-            $raw = Json::decode(
-                \file_get_contents($this->instance::getRootDirectoryPath(
-                    '/vehicles/default/types.json'
-                ))
-            );
+            $raw = \json_decode(\file_get_contents($this->instance::getRootDirectoryPath(
+                '/vehicles/default/types.json'
+            )), true);
 
             $this->assertCount(count($raw), $result);
 
