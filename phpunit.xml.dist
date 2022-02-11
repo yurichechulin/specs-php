@@ -15,15 +15,18 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
-    <logging>
-        <log type="coverage-html" target="./coverage/html"/>
-        <log type="coverage-xml" target="./coverage/xml"/>
-        <log type="coverage-clover" target="./coverage/clover.xml"/>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-    </logging>
+    <coverage includeUncoveredFiles="false" processUncoveredFiles="true">
+        <include>
+        </include>
+        <exclude>
+            <directory>./vendor</directory>
+            <directory>./tests</directory>
+        </exclude>
+        <report>
+            <clover outputFile="./coverage/clover.xml"/>
+            <html outputDirectory="./coverage/html"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+            <xml outputDirectory="./coverage/xml"/>
+        </report>
+    </coverage>
 </phpunit>

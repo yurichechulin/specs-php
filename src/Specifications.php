@@ -78,7 +78,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|Field[]
+     * @return Collection<string, Field>
      */
     public static function getFieldsSpecification(string $group_name = null): Collection
     {
@@ -155,7 +155,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|IdentifierType[]
+     * @return Collection<string, IdentifierType>
      */
     public static function getIdentifierTypesSpecification(string $group_name = null): Collection
     {
@@ -197,7 +197,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|Source[]
+     * @return Collection<string, Source>
      */
     public static function getSourcesSpecification(string $group_name = null): Collection
     {
@@ -239,7 +239,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleMark[]
+     * @return Collection<string, VehicleMark>
      */
     public static function getVehicleMarksSpecification(string $group_name = null): Collection
     {
@@ -265,7 +265,7 @@ class Specifications
      *
      * @throws InvalidArgumentException
      *
-     * @return Collection|VehicleModel[]
+     * @return Collection<string, VehicleModel>
      */
     public static function getVehicleModelsSpecification(
         string $group_name = null,
@@ -294,7 +294,7 @@ class Specifications
      * @throws Exception
      * @throws InvalidArgumentException
      *
-     * @return Collection|VehicleType[]
+     * @return Collection<string, VehicleType>
      */
     public static function getVehicleTypesSpecification(string $group_name = null): Collection
     {
@@ -319,7 +319,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleBodyType[]
+     * @return Collection<string, VehicleBodyType>
      */
     public static function getVehicleBodyTypesSpecification(string $group_name = null): Collection
     {
@@ -344,7 +344,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleDrivingWheelsType[]
+     * @return Collection<string, VehicleDrivingWheelsType>
      */
     public static function getVehicleDrivingWheelsTypesSpecification(string $group_name = null): Collection
     {
@@ -369,7 +369,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleEngineType[]
+     * @return Collection<string, VehicleEngineType>
      */
     public static function getVehicleEngineTypesSpecification(string $group_name = null): Collection
     {
@@ -394,7 +394,7 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleSteeringWheelType[]
+     * @return Collection<string, VehicleSteeringWheelType>
      */
     public static function getVehicleSteeringWheelTypesSpecification(string $group_name = null): Collection
     {
@@ -419,13 +419,14 @@ class Specifications
      *
      * @throws Exception
      *
-     * @return Collection|VehicleTransmissionType[]
+     * @return Collection<string, VehicleTransmissionType>
      */
     public static function getVehicleTransmissionTypesSpecification(string $group_name = null): Collection
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/vehicles/{$group_name}/transmission_types.json")
         );
