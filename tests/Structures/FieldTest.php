@@ -60,8 +60,8 @@ class FieldTest extends AbstractStructureTestCase
         $this->instance = $this->factory([
             'path'        => $path = 'some path',
             'description' => $description = 'some description',
-            'types'       => ['some', new \stdClass(), false, 'types', 123.11],
-            'fillable_by' => ['some.source', new \stdClass(), false, 'another.source', 123.11],
+            'types'       => ['some', new \stdClass(), true, 'types', 123.11],
+            'fillable_by' => ['some.source', new \stdClass(), false, 'another.source', 124.12],
         ]);
 
         $this->assertSame($path, $this->instance->getPath());
