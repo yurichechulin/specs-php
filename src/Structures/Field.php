@@ -40,7 +40,7 @@ class Field extends AbstractStructure
     /**
      * Possible sources.
      *
-     * @var string[]|array
+     * @var string[]|null
      */
     protected $fillable_by;
 
@@ -142,33 +142,31 @@ class Field extends AbstractStructure
             foreach ($raw_data as $key => $value) {
                 switch ($key) {
                     case 'path':
+                        /** @var string|null $value */
                         $this->path = $value === null
                             ? null
                             : (string) $value;
                         break;
 
                     case 'description':
+                        /** @var string|null $value */
                         $this->description = $value === null
                             ? null
                             : (string) $value;
                         break;
 
                     case 'types':
-                        /* @var string[]|null $value */
-                        $value === null
+                        $this->types = $value === null
                             ? null
-                            : \array_filter((array) $value, '\is_string');
+                            : \array_values(\array_filter((array) $value, '\is_string'));
 
-                        $this->types = $value;
                         break;
 
                     case 'fillable_by':
-                        /* @var string[]|null $value */
-                        $value === null
+                        $this->fillable_by = $value === null
                             ? null
-                            : \array_filter((array) $value, '\is_string');
+                            : \array_values(\array_filter((array) $value, '\is_string'));
 
-                        $this->fillable_by = $value;
                         break;
                 }
             }

@@ -22,7 +22,9 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
      */
     public function __construct($raw_data = null)
     {
-        $this->configure($raw_data);
+        if (\is_iterable($raw_data)) {
+            $this->configure($raw_data);
+        }
     }
 
     /**
@@ -56,7 +58,7 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
      */
     public function offsetExists($offset): bool
     {
-        return \property_exists($this, $offset);
+        return \is_string($offset) && \property_exists($this, $offset);
     }
 
     /**
@@ -81,7 +83,7 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new LogicException('Changing are not allowed');
     }
@@ -95,7 +97,7 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new LogicException('Changing are not allowed');
     }

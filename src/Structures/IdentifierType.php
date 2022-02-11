@@ -66,12 +66,14 @@ class IdentifierType extends AbstractStructure
             foreach ($raw_data as $key => $value) {
                 switch ($key) {
                     case 'type':
+                        /** @var string|null $value */
                         $this->type = $value === null
                             ? null
                             : (string) $value;
                         break;
 
                     case 'description':
+                        /** @var string|null $value */
                         $this->description = $value === null
                             ? null
                             : (string) $value;

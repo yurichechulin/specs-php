@@ -66,12 +66,14 @@ class Source extends AbstractStructure
             foreach ($raw_data as $key => $value) {
                 switch ($key) {
                     case 'name':
+                        /** @var string|null $value */
                         $this->name = $value === null
                             ? null
                             : (string) $value;
                         break;
 
                     case 'description':
+                        /** @var string|null $value */
                         $this->description = $value === null
                             ? null
                             : (string) $value;

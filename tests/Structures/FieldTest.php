@@ -55,6 +55,31 @@ class FieldTest extends AbstractStructureTestCase
     /**
      * {@inheritdoc}
      */
+    public function testConfigureWithWrongTypes(): void
+    {
+        $this->instance = $this->factory([
+            'path'        => $path = 'some path',
+            'description' => $description = 'some description',
+            'types'       => ['some', new \stdClass(), false, 'types', 123.11],
+            'fillable_by' => ['some.source', new \stdClass(), false, 'another.source', 123.11],
+        ]);
+
+        $this->assertSame($path, $this->instance->getPath());
+        $this->assertSame($description, $this->instance->getDescription());
+        $this->assertSame(['some', 'types'], $this->instance->getTypes());
+        $this->assertSame(['some.source', 'another.source'], $this->instance->getFillableBy());
+
+        $this->assertSame([
+            'path' => $path,
+            'description' => $description,
+            'types' => ['some', 'types'],
+            'fillable_by' => ['some.source', 'another.source'],
+        ], $this->instance->toArray());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function testArrayAccess(): void
     {
         $this->instance = $this->factory([

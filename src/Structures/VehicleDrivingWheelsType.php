@@ -66,12 +66,14 @@ class VehicleDrivingWheelsType extends AbstractStructure
             foreach ($raw_data as $key => $value) {
                 switch ($key) {
                     case 'name':
+                        /** @var string|null $value */
                         $this->name = $value === null
                             ? null
                             : (string) $value;
                         break;
 
                     case 'id':
+                        /** @var string|null $value */
                         $this->id = $value === null
                             ? null
                             : (string) $value;
