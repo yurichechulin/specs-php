@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 ### Added
 
-- Support PHP `8.1`
+- Minimal required PHP version now is `8.0`
+- Minimal required dependency `illuminate/support` now is `~9.0`
 
 ### Changed
 

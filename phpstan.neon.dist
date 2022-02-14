@@ -1,10 +1,5 @@
 parameters:
   level: 'max'
-  ignoreErrors:
-    - # collection never typing
-       message: '#NEVER#'
-       paths:
-         - src
 
   paths:
     - src

@@ -12,7 +12,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements \ArrayAccess<string,mixed>
  * @implements \IteratorAggregate<string,mixed>
- * @implements Arrayable<string, mixed>
+ * @implements Arrayable<string,mixed>
  */
 abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \IteratorAggregate
 {
@@ -69,7 +69,7 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->{$offset};
     }

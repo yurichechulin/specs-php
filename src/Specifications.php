@@ -84,7 +84,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
-        $result = new Collection;
+        /** @var Collection<string, Field> $result */
+        $result = new Collection();
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/fields/{$group_name}/fields_list.json")
         );
@@ -161,7 +163,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, IdentifierType> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/identifiers/{$group_name}/types_list.json")
         );
@@ -203,7 +207,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, Source> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/sources/{$group_name}/sources_list.json")
         );
@@ -245,7 +251,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, VehicleMark> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/vehicles/{$group_name}/marks.json")
         );
@@ -276,7 +284,9 @@ class Specifications
 
         $path_file = static::getVehicleModelsSpecificationFilePath($vehicle_type, $group_name);
 
+        /** @var Collection<string, VehicleModel> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(static::getRootDirectoryPath($path_file));
 
         foreach ((array) $input as $source_data) {
@@ -300,7 +310,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, VehicleType> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/vehicles/{$group_name}/types.json")
         );
@@ -325,7 +337,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, VehicleBodyType> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/vehicles/{$group_name}/body_types.json")
         );
@@ -350,7 +364,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, VehicleDrivingWheelsType> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/vehicles/{$group_name}/driving_wheels_types.json")
         );
@@ -384,6 +400,7 @@ class Specifications
             $result->put($source_data['id'], new VehicleEngineType($source_data));
         }
 
+        /** @var Collection<string, VehicleEngineType> $result */
         return $result;
     }
 
@@ -400,7 +417,9 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, VehicleSteeringWheelType> $result */
         $result = new Collection;
+
         $input  = static::getJsonFileContent(
             static::getRootDirectoryPath("/vehicles/{$group_name}/steering_wheel_types.json")
         );
@@ -425,6 +444,7 @@ class Specifications
     {
         $group_name = $group_name ?? self::GROUP_NAME_DEFAULT;
 
+        /** @var Collection<string, VehicleTransmissionType> $result */
         $result = new Collection;
 
         $input  = static::getJsonFileContent(
