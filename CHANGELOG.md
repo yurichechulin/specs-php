@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## Unreleased
+
+### Added
+
+- Support for PHP versions `8.0` and `8.1`
+
+### Changed
+
+- Dependency `avtocod/specs` version `^3.0` is supported now
+
 ## v1.4.0
 
 ### Changed
