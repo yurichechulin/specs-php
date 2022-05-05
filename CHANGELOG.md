@@ -12,7 +12,13 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 ### Changed
 
+- Minimal required PHP version now is `7.4`
 - Dependency `avtocod/specs` version `^3.0` is supported now
+- Dependency `ocramius/package-versions` updated and version fixed to 2.1.0
+- TODO Dockerfile
+- php:7.4.29-alpine3.15
+- Composer  2.3.5
+- xdebug-3.1.4
 
 ## v1.4.0
 
