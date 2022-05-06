@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 ### Added
 
-- Support for PHP versions `8.0` and `8.1`
+- Support for PHP versions `8.0`
 
 ### Changed
 
