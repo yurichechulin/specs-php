@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications\Tests\Services;
 
+use JsonException;
 use OutOfBoundsException;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\TestCase;
@@ -14,10 +15,9 @@ use function array_merge;
 use function file_get_contents;
 
 /**
- * @group Services
- * @group Services_Versions
+ * @group versions
  *
- * @covers \Avtocod\Specifications\Services\Versions<extended>
+ * @covers \Avtocod\Specifications\Services\Versions
  */
 class VersionsTest extends TestCase
 {
@@ -49,11 +49,18 @@ class VersionsTest extends TestCase
     /**
      * Get all packages data from `composer.lock` file.
      *
+     * @throws JsonException
+     *
      * @return array
      */
     private function getAllPackagesData(): array
     {
-        $lock_data = json_decode(file_get_contents(__DIR__ . '/../../composer.lock'), true);
+        $lock_data = json_decode(
+            file_get_contents(__DIR__ . '/../../composer.lock'),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
 
         return array_merge($lock_data['packages'], $lock_data['packages-dev']);
     }
