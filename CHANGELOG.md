@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 ### Changed
 
 - Package `ocramius/package-versions` replaced to internal service `Versions`
+- Composer version updated from `v1` to `v2` at CI
 
 ## v1.4.0
 
