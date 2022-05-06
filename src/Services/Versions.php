@@ -14,12 +14,12 @@ final class Versions
     /**
      * Returns the full version of the specified package as `v1.4.0@5a29c10`.
      *
-     * @param string $packageName
+     * @param string $package_name
      *
      * @return string
      */
-    public static function getVersion(string $packageName): string
+    public static function getVersion(string $package_name): string
     {
-        return InstalledVersions::getPrettyVersion($packageName) . '@' . InstalledVersions::getReference($packageName);
+        return InstalledVersions::getPrettyVersion($package_name) . '@' . InstalledVersions::getReference($package_name);
     }
 }
