@@ -6,8 +6,8 @@ namespace Avtocod\Specifications;
 
 use Exception;
 use InvalidArgumentException;
-use PackageVersions\Versions;
 use Illuminate\Support\Collection;
+use Avtocod\Specifications\Services\Versions;
 use Avtocod\Specifications\Structures\Field;
 use Avtocod\Specifications\Structures\Source;
 use Avtocod\Specifications\Structures\VehicleMark;
