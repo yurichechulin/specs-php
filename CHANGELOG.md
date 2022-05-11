@@ -13,8 +13,14 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 ### Changed
 
 - Minimal required PHP version now is `7.4`
-- Dependency `ocramius/package-versions` updated and version fixed to `2.1.0`
 - Updated environment (`Dockerfile`) for local development & tests (`php:7.4.29-alpine3.15`, `composer:2.3.5`, `xdebug-3.1.4`)
+
+## v1.5.0
+
+### Changed
+
+- Composer version updated from `v1` to `v2` at CI
+- Package `ocramius/package-versions` replaced to internal service `Versions`
 
 ## v1.4.0
 
