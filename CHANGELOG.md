@@ -12,7 +12,6 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 ### Changed
 
-- Minimal required PHP version now is `7.4`
 - Updated environment (`Dockerfile`) for local development & tests (`php:7.4.29-alpine3.15`, `composer:2.3.5`, `xdebug-3.1.4`)
 
 ## v1.5.0
