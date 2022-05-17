@@ -1,4 +1,4 @@
-FROM php:7.3.5-alpine
+FROM php:7.4.29-alpine3.15
 
 ENV \
     COMPOSER_ALLOW_SUPERUSER="1" \
@@ -10,7 +10,7 @@ RUN set -x \
     && apk add --no-cache binutils git \
     && apk add --no-cache --virtual .build-deps autoconf pkgconf make g++ gcc 1>/dev/null \
     # install xdebug (for testing with code coverage), but not enable it
-    && pecl install xdebug-2.9.6 1>/dev/null \
+    && pecl install xdebug-3.1.4 1>/dev/null \
     && apk del .build-deps \
     && mkdir /src ${COMPOSER_HOME} \
     && ln -s /usr/bin/composer /usr/bin/c \
