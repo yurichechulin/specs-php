@@ -140,7 +140,7 @@ class SpecificationsTest extends TestCase
     public function testGetReportExampleWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getReportExample('foo bar');
     }
@@ -192,7 +192,7 @@ class SpecificationsTest extends TestCase
     public function testGetIdentifierTypesSpecificationWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getIdentifierTypesSpecification('foo bar');
     }
@@ -227,7 +227,7 @@ class SpecificationsTest extends TestCase
     public function testGetFieldsSpecificationWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getFieldsSpecification('foo bar');
     }
@@ -597,7 +597,7 @@ class SpecificationsTest extends TestCase
     public function testGetSourcesSpecificationWithInvalidGroupName(): void
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessageRegExp('~file.+was not found~i');
+        $this->expectExceptionMessageMatches('~file.+was not found~i');
 
         $this->instance::getSourcesSpecification('foo bar');
     }
