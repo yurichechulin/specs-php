@@ -15,11 +15,17 @@
             "homepage": "https://github.com/avtocod"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bend-is/specs"
+        }
+    ],
     "require": {
         "php": "^7.3 || ^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "avtocod/specs": "~3.70",
+        "avtocod/specs": "dev-add-fines-registry",
         "illuminate/support": "~6.0 || ~7.0 || ~8.0 || ~9.0"
     },
     "require-dev": {
