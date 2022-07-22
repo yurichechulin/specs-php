@@ -4,6 +4,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## v1.7.0
+
+### Added
+
+- Support Laravel `9.x`
+
+### Changed
+
+- Version of php in docker container updated up to `8.0`
+
+## v1.6.0
+
+### Added
+
+- Support for PHP version `8.0`
+
+### Changed
+
+- Package `phpstan/phpstan` is fixed at `0.12.99`
+- Updated environment (`Dockerfile`) for local development & tests (`php:7.4.29-alpine3.15`, `composer:2.3.5`, `xdebug-3.1.4`)
+
+## v1.5.0
+
+### Changed
+
+- Composer version updated from `v1` to `v2` at CI
+- Package `ocramius/package-versions` replaced to internal service `Versions`
+
 ## v1.4.0
 
 ### Changed
