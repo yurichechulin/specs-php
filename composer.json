@@ -25,7 +25,7 @@
         "php": "^7.3 || ^8.0",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "avtocod/specs": "dev-add-kbm-value-field",
+        "avtocod/specs": "dev-add-leasing-registry-source",
         "illuminate/support": "~6.0 || ~7.0 || ~8.0 || ~9.0"
     },
     "require-dev": {
