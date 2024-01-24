@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Avtocod\Specifications\Structures\VehicleDrivingWheelsType;
 
 /**
- * @covers \Avtocod\Specifications\Structures\VehicleDrivingWheelsType<extended>
+ * @covers \Avtocod\Specifications\Structures\VehicleDrivingWheelsType
  */
 class VehicleDrivingWheelsTypeTest extends AbstractStructureTestCase
 {

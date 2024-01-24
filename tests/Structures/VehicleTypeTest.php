@@ -5,7 +5,7 @@ namespace Avtocod\Specifications\Tests\Structures;
 use Avtocod\Specifications\Structures\VehicleType;
 
 /**
- * @covers \Avtocod\Specifications\Structures\VehicleType<extended>
+ * @covers \Avtocod\Specifications\Structures\VehicleType
  */
 class VehicleTypeTest extends AbstractStructureTestCase
 {

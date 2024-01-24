@@ -5,7 +5,7 @@ namespace Avtocod\Specifications\Tests\Structures;
 use Avtocod\Specifications\Structures\VehicleMark;
 
 /**
- * @covers \Avtocod\Specifications\Structures\VehicleMark<extended>
+ * @covers \Avtocod\Specifications\Structures\VehicleMark
  */
 class VehicleMarkTest extends AbstractStructureTestCase
 {

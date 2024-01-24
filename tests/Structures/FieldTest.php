@@ -5,7 +5,7 @@ namespace Avtocod\Specifications\Tests\Structures;
 use Avtocod\Specifications\Structures\Field;
 
 /**
- * @covers \Avtocod\Specifications\Structures\Field<extended>
+ * @covers \Avtocod\Specifications\Structures\Field
  */
 class FieldTest extends AbstractStructureTestCase
 {

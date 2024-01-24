@@ -5,7 +5,7 @@ namespace Avtocod\Specifications\Tests\Structures;
 use Avtocod\Specifications\Structures\Source;
 
 /**
- * @covers \Avtocod\Specifications\Structures\Source<extended>
+ * @covers \Avtocod\Specifications\Structures\Source
  */
 class SourceTest extends AbstractStructureTestCase
 {

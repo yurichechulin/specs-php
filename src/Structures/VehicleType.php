@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications\Structures;
 
+/**
+ * @phpstan-type VehicleTypeData array{name:string|null, id:string|null, alias:string|null}
+ *
+ * @extends AbstractStructure<VehicleTypeData>
+ */
 class VehicleType extends AbstractStructure
 {
     /**

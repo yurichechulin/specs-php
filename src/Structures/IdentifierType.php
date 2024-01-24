@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications\Structures;
 
+/**
+ * @phpstan-type IdentifierTypeData array{type:string|null, description:string|null}
+ *
+ * @extends AbstractStructure<IdentifierTypeData>
+ */
 class IdentifierType extends AbstractStructure
 {
     /**

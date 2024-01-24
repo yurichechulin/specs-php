@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications\Structures;
 
+/**
+ * @phpstan-type FieldData array{path:string|null, description:string|null, types:string[]|null, fillable_by:string[]|null}
+ *
+ * @extends AbstractStructure<FieldData>
+ */
 class Field extends AbstractStructure
 {
     /**
@@ -40,7 +45,7 @@ class Field extends AbstractStructure
     /**
      * Possible sources.
      *
-     * @var string[]|array
+     * @var string[]|null
      */
     protected $fillable_by;
 
@@ -154,7 +159,6 @@ class Field extends AbstractStructure
                         break;
 
                     case 'types':
-                        /* @var string[]|null $value */
                         $value === null
                             ? null
                             : \array_filter((array) $value, '\is_string');
@@ -163,7 +167,6 @@ class Field extends AbstractStructure
                         break;
 
                     case 'fillable_by':
-                        /* @var string[]|null $value */
                         $value === null
                             ? null
                             : \array_filter((array) $value, '\is_string');

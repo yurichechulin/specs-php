@@ -10,6 +10,8 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
+ * @template AbstractStructureData of array<string, mixed>
+ *
  * @implements \ArrayAccess<string,mixed>
  * @implements \IteratorAggregate<string,mixed>
  */
@@ -18,7 +20,7 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
     /**
      * Create a new structure instance.
      *
-     * @param mixed|null $raw_data
+     * @param AbstractStructureData|null $raw_data
      */
     public function __construct($raw_data = null)
     {
@@ -50,7 +52,7 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
     /**
      * Whether a offset exists.
      *
-     * @param mixed $offset
+     * @param string $offset
      *
      * @return bool
      */
@@ -60,42 +62,29 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
     }
 
     /**
-     * Offset to retrieve.
-     *
-     * @param mixed $offset
-     *
-     * @return mixed
+     * @inheritdoc
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->{$offset};
     }
 
     /**
-     * Offset to set.
+     * @inheritdoc
      *
-     * @param mixed $offset
-     * @param mixed $value
-     *
-     * @throws LogicException
-     *
-     * @return void
+     *  @throws LogicException
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new LogicException('Changing are not allowed');
     }
 
     /**
-     * Offset to unset.
+     * @inheritdoc
      *
-     * @param mixed $offset
-     *
-     * @throws LogicException
-     *
-     * @return void
+     *  @throws LogicException
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new LogicException('Changing are not allowed');
     }
@@ -103,11 +92,11 @@ abstract class AbstractStructure implements Arrayable, Jsonable, \ArrayAccess, \
     /**
      * Configure itself.
      *
-     * @param mixed[]|iterable $raw_data
+     * @param AbstractStructureData|null $raw_data
      *
      * @return void
      *
-     * @deprecated Will be removed in closest major release
+     * @deprecated Will be removed in the closest major release
      */
     abstract protected function configure($raw_data);
 }

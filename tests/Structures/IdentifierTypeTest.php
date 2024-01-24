@@ -5,7 +5,7 @@ namespace Avtocod\Specifications\Tests\Structures;
 use Avtocod\Specifications\Structures\IdentifierType;
 
 /**
- * @covers \Avtocod\Specifications\Structures\IdentifierType<extended>
+ * @covers \Avtocod\Specifications\Structures\IdentifierType
  */
 class IdentifierTypeTest extends AbstractStructureTestCase
 {

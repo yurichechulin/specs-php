@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog] and this project adheres to [Semantic Versioning][semver].
 
+## Unreleased
+
+### Added
+
+- `Laravel 10` support
+- `PHP Unit 10` support
+
+### Changed
+
+- Minimal PHP version now is `8.0.2`
+- Minimal Laravel version now is `9.0`
+- Minimal `phpunit/phpunit` version now is `9.6`
+- Minimal `phpstan/phpstan` version now is `1.10`
+- Version of `composer` in docker container updated up to `2.6.6`
+
 ## v1.7.0
 
 ### Added

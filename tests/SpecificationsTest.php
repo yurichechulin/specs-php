@@ -25,7 +25,7 @@ use Avtocod\Specifications\Structures\VehicleDrivingWheelsType;
 use Avtocod\Specifications\Structures\VehicleSteeringWheelType;
 
 /**
- * @covers \Avtocod\Specifications\Specifications<extended>
+ * @covers \Avtocod\Specifications\Specifications
  */
 class SpecificationsTest extends TestCase
 {

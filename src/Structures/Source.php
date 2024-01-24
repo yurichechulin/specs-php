@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Avtocod\Specifications\Structures;
 
+/**
+ * @phpstan-type SourceData array{name:string|null, description:string|null}
+ *
+ * @extends AbstractStructure<SourceData>
+ */
 class Source extends AbstractStructure
 {
     /**

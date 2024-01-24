@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Avtocod\Specifications\Structures\VehicleTransmissionType;
 
 /**
- * @covers \Avtocod\Specifications\Structures\VehicleTransmissionType<extended>
+ * @covers \Avtocod\Specifications\Structures\VehicleTransmissionType
  */
 class VehicleTransmissionTypeTest extends AbstractStructureTestCase
 {
