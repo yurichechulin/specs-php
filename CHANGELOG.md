@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog][keepachangelog] and this project adher
 
 ### Added
 
-- `Laravel 11` support
+- Support Laravel `11.x`
 
 ## v1.8.0
 
