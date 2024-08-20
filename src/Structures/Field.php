@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Avtocod\Specifications\Structures;
 
@@ -153,12 +153,14 @@ class Field extends AbstractStructure
                         break;
 
                     case 'description':
+                        /** @var string|null $value */
                         $this->description = $value === null
                             ? null
                             : (string) $value;
                         break;
 
                     case 'types':
+                        /** @var string[]|null $value */
                         $value === null
                             ? null
                             : \array_filter((array) $value, '\is_string');
@@ -167,6 +169,7 @@ class Field extends AbstractStructure
                         break;
 
                     case 'fillable_by':
+                        /** @var string[]|null $value */
                         $value === null
                             ? null
                             : \array_filter((array) $value, '\is_string');
