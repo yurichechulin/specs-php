@@ -25,7 +25,7 @@
         "php": "^8.0.2",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "avtocod/specs": "dev-add-fines-registry-batch-source ",
+        "avtocod/specs": "dev-add-fines-registry-batch-source",
         "illuminate/support": "~9.0 || ~10.0 || ~11.0"
     },
     "require-dev": {
